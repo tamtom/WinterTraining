@@ -1,11 +1,15 @@
 package com.itdeve.fragmentcommunicator;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -13,8 +17,9 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentA extends Fragment {
-TextView vvv ;
-
+Button mButton ;
+    int c;
+clicktoChange clicktoChange;
     public FragmentA() {
         // Required empty public constructor
     }
@@ -27,18 +32,29 @@ TextView vvv ;
         return inflater.inflate(R.layout.fragment_, container, false);
     }
 
+
+
+
+
     @Override
-    public void onStart() {
-        View view = getView();
-        if (view != null) {
-            vvv = (TextView) view.findViewById(R.id.text_to_change);
-
-        }
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        clicktoChange = (FragmentA.clicktoChange) getActivity();
+        Log.d("yay","interface init");
+        mButton = (Button) getActivity().findViewById(R.id.change_text);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                c++;
+                clicktoChange.changeTheText("oh baby "+c);
+            }
+        });
     }
-    private void changeText(String r){
-        vvv.setText(r);
 
+    static  interface clicktoChange{
+        void changeTheText(String str);
     }
+
 }
 
 

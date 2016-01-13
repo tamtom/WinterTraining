@@ -5,10 +5,11 @@
     tools:context="com.itdeve.fragmentcommunicator.FragmentA">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/text_to_change"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/change_text"
+
+        android:text="change"/>
 
 </FrameLayout>
