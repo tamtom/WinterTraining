@@ -1,8 +1,10 @@
 package com.itdeve.workoutfragments;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ public class WorkoutDetailFragment extends Fragment {
         this.workid = workid;
     }
 
+
     private long workid ;
 
     public WorkoutDetailFragment() {
@@ -28,6 +31,8 @@ public class WorkoutDetailFragment extends Fragment {
         super.onStart();
         View view = getView();
         if(view!=null){
+
+            Log.d("we are in DetailFrag", "onStart: ");
             TextView title = (TextView) view.findViewById(R.id.textTitle);
             Workout workout = Workout.workouts[(int) workid];
             title.setText(workout.getName());
