@@ -10,16 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentA extends Fragment {
+public class FragmentA extends Fragment implements View.OnClickListener {
 Button mButton ;
     int c;
-clicktoChange clicktoChange;
+ClicktoChange clicktoChange;
     public FragmentA() {
         // Required empty public constructor
     }
@@ -28,32 +28,50 @@ clicktoChange clicktoChange;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("we are ","frag A created!");
+     View view=   inflater.inflate(R.layout.fragment_, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_, container, false);
+        if(savedInstanceState!=null){
+            c = savedInstanceState.getInt("counter");
+            mButton = (Button) view.findViewById(R.id.change_text);
+            Log.d("here we set the","the listener");
+            mButton.setOnClickListener(this);
+        }
+        return view;
+
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("counter",c);
+    }
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(mButton!=null)
+        mButton.setOnClickListener(this);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        clicktoChange = (FragmentA.clicktoChange) getActivity();
+        clicktoChange = (ClicktoChange) getActivity();
         Log.d("yay","interface init");
         mButton = (Button) getActivity().findViewById(R.id.change_text);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                c++;
-                clicktoChange.changeTheText("oh baby "+c);
-            }
-        });
+        mButton.setOnClickListener(this);
     }
 
-    static  interface clicktoChange{
-        void changeTheText(String str);
+    @Override
+    public void onClick(View v) {
+        Log.d("we are in","onClick yay");
+        c++;
+        clicktoChange.changeTheText("oh baby "+c);
     }
+
+
 
 }
 

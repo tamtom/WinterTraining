@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class FragmentB extends Fragment {
 
    TextView Text;
+    String str;
     public FragmentB() {
         // Required empty public constructor
     }
@@ -26,7 +27,14 @@ public class FragmentB extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_b, container, false);
+        Log.d("frag b","Yes I'v been created");
+     View   view = inflater.inflate(R.layout.fragment_fragment_b, container, false);
+        if(savedInstanceState!=null){
+            str = savedInstanceState.getString("text");
+            Text = (TextView) view.findViewById(R.id.textfrag );
+            Text.setText(str);
+        }
+        return view;
     }
 
 
@@ -38,7 +46,14 @@ public class FragmentB extends Fragment {
         Log.d("the text is ", (Text == null) + "");
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    outState.putString("text",str);
+    }
+
     public  void changeText(String str){
+        this.str = str;
         Text.setText(str);
     }
 
